@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { HabbitTracker } from '@/components/habbit-tracker';
 import { MeditationTimer } from '@/components/meditation-timer';
 import { GratitudeList } from '@/components/gratitude-list';
+import { RedditFeed } from '@/components/reddit-feed';
 
 // Motivational Quotes Collection
 const quotes = [
@@ -390,6 +391,11 @@ export default function Dashboard() {
                     )}
                 </CardContent>
              </Card>
+        </section>
+
+        {/* Community Insights Section */}
+        <section className="grid gap-6 md:grid-cols-1">
+             <RedditFeed />
         </section>
 
 
