@@ -9,6 +9,21 @@ import { Progress } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
 import { HabbitTracker } from '@/components/habbit-tracker';
 import { MeditationTimer } from '@/components/meditation-timer';
+import { GratitudeList } from '@/components/gratitude-list';
+
+// Motivational Quotes Collection
+const quotes = [
+    { text: "He who conquers others is strong; he who conquers himself is mighty.", author: "Lao Tzu" },
+    { text: "The only easy day was yesterday.", author: "US Navy SEALs" },
+    { text: "Discipline is doing what needs to be done, even if you don't want to do it.", author: "Unknown" },
+    { text: "We must all suffer from one of two pains: the pain of discipline or the pain of regret.", author: "Jim Rohn" },
+    { text: "Success is the sum of small efforts, repeated day in and day out.", author: "Robert Collier" },
+    { text: "Your future is created by what you do today, not tomorrow.", author: "Robert Kiyosaki" },
+    { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+    { text: "Don't count the days, make the days count.", author: "Muhammad Ali" },
+    { text: "Mastering others is strength. Mastering yourself is true power.", author: "Lao Tzu" },
+    { text: "The secret of getting ahead is getting started.", author: "Mark Twain" }
+];
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -17,6 +32,12 @@ export default function Dashboard() {
   const [journals, setJournals] = useState<any[]>([]);
   const [journalContent, setJournalContent] = useState('');
   const [loading, setLoading] = useState(true);
+  const [quote, setQuote] = useState(quotes[0]);
+
+  useEffect(() => {
+    // Randomize quote on client mount
+    setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+  }, []);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -249,11 +270,13 @@ export default function Dashboard() {
                     <div className="mb-6 text-indigo-500/30">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H11.983C10.8784 16 9.98298 16.8954 9.98298 18L9.98298 21L7.98298 21V11H16.017V21H14.017ZM12.017 2L18.017 8H6.01698L12.017 2Z" /></svg>
                     </div>
-                    <p className="text-lg font-light text-slate-200 italic leading-relaxed mb-6 font-serif">
-                        "He who conquers others is strong; he who conquers himself is mighty."
-                    </p>
-                    <div className="w-12 h-[1px] bg-white/10 mb-2" />
-                    <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">— Lao Tzu</p>
+                    <div className="min-h-[100px] flex flex-col justify-center items-center">
+                        <p className="text-lg font-light text-slate-200 italic leading-relaxed mb-6 font-serif animate-in fade-in duration-700">
+                            "{quote.text}"
+                        </p>
+                        <div className="w-12 h-[1px] bg-white/10 mb-2" />
+                        <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">— {quote.author}</p>
+                    </div>
                 </CardContent>
             </Card>
         </section>
@@ -301,9 +324,10 @@ export default function Dashboard() {
         </section>
 
         {/* Wellness Tools Section */}
-        <section className="grid gap-6 md:grid-cols-2">
+        <section className="grid gap-6 md:grid-cols-3">
             <HabbitTracker />
             <MeditationTimer />
+            <GratitudeList />
         </section>
 
         {/* Journal Section - Redesigned (Simplified) */}
