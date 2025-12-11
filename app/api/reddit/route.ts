@@ -4,11 +4,11 @@ export const dynamic = 'force-dynamic'; // Ensure no caching for latest posts
 
 export async function GET() {
   try {
-    const res = await fetch('https://www.reddit.com/r/Semenretention/hot.json?limit=5', {
+    const res = await fetch('https://www.reddit.com/r/Semenretention/hot.json?limit=10', {
       headers: {
         'User-Agent': 'NoFapTracker/1.0', // Reddit API requires a User-Agent to avoid 429s
       },
-      next: { revalidate: 300 } // Cache for 5 minutes
+      next: { revalidate: 0 } // No cache, always fetch fresh
     });
 
     if (!res.ok) {
